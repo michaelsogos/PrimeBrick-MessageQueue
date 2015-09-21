@@ -26,7 +26,7 @@ Public Class Broker
     End Sub
 
     Public Sub New(ListenerAddress As String, ListenerPort As Integer)
-        Me.ListenerAddress = ParseListenerAddress(ListenerAddress)
+        Me.ListenerAddress = ParseIPAddress(ListenerAddress)
         Me.ListenerPort = ListenerPort
     End Sub
 
@@ -63,7 +63,7 @@ Public Class Broker
     ''' </summary>
     ''' <param name="ValueToParse"></param>
     ''' <returns></returns>
-    Public Function ParseListenerAddress(ByVal ValueToParse As String) As IPAddress
+    Public Function ParseIPAddress(ByVal ValueToParse As String) As IPAddress
         If String.IsNullOrWhiteSpace(ValueToParse) Then Throw New ArgumentNullException(ValueToParse, "The value of the parameter cannot be empty.")
 
         If ValueToParse.ToLower = "any" Then

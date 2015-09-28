@@ -29,6 +29,8 @@ Public Class Client
 
     Public Function Publish()
 
+        Dim a = FastConverter.getbytes(UShort.MaxValue)
+
         Dim Watch As New Stopwatch
         Dim TEST2 As New TESTSER2
         TEST2.Test1 = New DateTimeOffset()
@@ -50,8 +52,11 @@ Public Class Client
         For x = 1 To MessageCount
             Dim rndstr = New String(Enumerable.Repeat(chars, 1024).Select(Function(s) s(Random.Next(s.Length - 1))).ToArray())
             TEST1.Test7.Add(rndstr)
+            'TEST1.Test10.Add(x, rndstr)
             str += rndstr
         Next
+
+
 
 
 
@@ -101,53 +106,16 @@ Public Class Client
         Dim cust64 = Convert.ToBase64String(ba)
         Watch.Stop()
         Debug.WriteLine("custom to BASE64: " + Watch.ElapsedMilliseconds.ToString())
+        Watch.Reset()
+        Watch.Start()
+        Dim bades As Object
+        Using memorystream As New MemoryStream(ba)
+            Dim w As New NetworkFormatter()
+            bades = w.Deserialize(memorystream)
+        End Using
+        Watch.Stop()
+        Debug.WriteLine("Custom DESER: " + Watch.ElapsedMilliseconds.ToString())
 
-
-
-        'Watch.Reset()
-        'Watch.Start()
-        'Dim Serializer = New JsonSerializer()
-        'Dim BSONSER As Byte()
-        'Using memorystream As New MemoryStream()
-        '    Dim bw As New Newtonsoft.Json.Bson.BsonWriter(memorystream)
-        '    Serializer.Serialize(bw, TEST1)
-        '    BSONSER = memorystream.ToArray()
-        'End Using
-        'Watch.Stop()
-        'Debug.WriteLine("BSON: " + Watch.ElapsedMilliseconds.ToString())
-        'Watch.Start()
-        'Dim BSONBase64 = Convert.ToBase64String(BSONSER)
-        'Watch.Stop()
-        'Debug.WriteLine("BSON to BASE64: " + Watch.ElapsedMilliseconds.ToString())
-        'Watch.Reset()
-        'Watch.Start()
-        'Dim BSONDES As TESTSER
-        'Using memorystream As New MemoryStream(BSONSER)
-        '    Dim bw As New Newtonsoft.Json.Bson.BsonReader(memorystream)
-        '    BSONDES = Serializer.Deserialize(bw, GetType(TESTSER))
-        'End Using
-        'Watch.Stop()
-        'Debug.WriteLine("BSON DESER: " + Watch.ElapsedMilliseconds.ToString())
-
-
-        'Watch.Reset()
-        'Watch.Start()
-        'Dim SharDoc As Byte()
-        'Using memorystream As New MemoryStream()
-        '    MessageShark.MessageSharkSerializer.Serialize(TEST1, memorystream)
-        '    SharDoc = memorystream.ToArray()
-        'End Using
-        'Watch.Stop()
-        'Debug.WriteLine("Shark: " + Watch.ElapsedMilliseconds.ToString())
-        'Watch.Start()
-        'Dim Shark64 = Convert.ToBase64String(SharDoc)
-        'Watch.Stop()
-        'Debug.WriteLine("Shark to BASE64: " + Watch.ElapsedMilliseconds.ToString())
-        'Watch.Reset()
-        'Watch.Start()
-        'Dim SharkDES As TESTSER = MessageShark.MessageSharkSerializer.Deserialize(GetType(TESTSER), SharDoc)
-        'Watch.Stop()
-        'Debug.WriteLine("Shark DESER: " + Watch.ElapsedMilliseconds.ToString())
 
 
         Watch.Reset()
@@ -206,9 +174,11 @@ Public Class TESTSER
     Public Property Test7 As List(Of String)
     Private Property Test8 As String = "fffff"
     Public Property Test9 As Integer?
+    Public Property Test10 As Dictionary(Of Integer, String)
 
     Sub New()
         Test7 = New List(Of String)
+        Test10 = New Dictionary(Of Integer, String)
     End Sub
 End Class
 

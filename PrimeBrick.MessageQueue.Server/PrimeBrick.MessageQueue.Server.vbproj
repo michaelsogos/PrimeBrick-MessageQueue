@@ -63,9 +63,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Broker.vb" />
+    <Compile Include="Listener.vb" />
     <Compile Include="Events.vb" />
-    <Compile Include="Helpers.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -100,6 +99,15 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PrimeBrick.MessageQueue.Common\PrimeBrick.MessageQueue.Common\PrimeBrick.MessageQueue.Common.vbproj">
+      <Project>{4b9df8a3-e601-4f4e-b702-55a2dc83c4c2}</Project>
+      <Name>PrimeBrick.MessageQueue.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SecureServerConfiguration.vb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,9 +5,24 @@ Imports System.Text
 
 Module Client1
 
+    Class TESTEX
+        Public Property GHE As Double
+        Public Property lol As Guid
+    End Class
+
     Sub Main()
-        Dim a As New PrimeBrick.MessageQueue.Client.Client("localhost", 50605)
-        a.Publish()
+        Dim Client As New PrimeBrick.MessageQueue.Client.Client("localhost", 50605)
+        'Dim SSLClient As New PrimeBrick.MessageQueue.Client.Client("localhost", 50606, True)
+        'SSLClient.Publish("CIAO A TUTTI :)")
+        'Console.WriteLine("Press a key")
+        'Console.ReadKey()
+
+        'Client.Publish(New With {.P1 = "ciao", .p2 = 133})
+        'Console.WriteLine("Press a key")
+        'Console.ReadKey()
+
+        Client.Publish(New TESTEX With {.GHE = 1.4, .lol = Guid.NewGuid})
+        Console.WriteLine("Press a key")
         Console.ReadKey()
     End Sub
 

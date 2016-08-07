@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{235D58C3-1060-4B9B-9A91-5F37845C8A87}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <StartupObject>PrimeBrick.MessageBroker.Server</StartupObject>
+    <StartupObject>PrimeBrick.MessageBroker.Broker</StartupObject>
     <RootNamespace>PrimeBrick.MessageBroker</RootNamespace>
     <AssemblyName>PrimeBrick.MessageBroker</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -47,6 +47,23 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging, Version=3.3.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.3.0\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.3.0\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RethinkDb.Driver, Version=2.2.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RethinkDb.Driver.2.2.10\lib\net45\RethinkDb.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -69,8 +86,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.vb" />
-    <Compile Include="Server.vb" />
+    <Compile Include="Broker.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -106,8 +122,13 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\PrimeBrick.MessageQueue.Common\PrimeBrick.MessageQueue.Common\PrimeBrick.MessageQueue.Common.vbproj">
+      <Project>{4B9DF8A3-E601-4F4E-B702-55A2DC83C4C2}</Project>
+      <Name>PrimeBrick.MessageQueue.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PrimeBrick.MessageQueue.Server\PrimeBrick.MessageQueue.Server.vbproj">
       <Project>{e04c0b53-b4c6-4c59-a2a8-eca4fc326060}</Project>
       <Name>PrimeBrick.MessageQueue.Server</Name>

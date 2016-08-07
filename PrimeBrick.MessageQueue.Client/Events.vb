@@ -1,7 +1,6 @@
 ﻿Imports System.ComponentModel
-Imports PrimeBrick.MessageQueue.Common
 
-Public Class ServerLogEventArgs
+Public Class ClientLogEventArgs
     Inherits AsyncCompletedEventArgs
 
     Public ReadOnly Property Message As String
@@ -11,18 +10,6 @@ Public Class ServerLogEventArgs
         MyBase.New(Nothing, False, Nothing)
         Me.Message = Message
         Me.Gravity = Gravity
-    End Sub
-
-End Class
-
-Public Class ReceivedMessageArgs
-    Inherits AsyncCompletedEventArgs
-
-    Public ReadOnly Property Message As Message
-
-    Public Sub New(Message As Message)
-        MyBase.New(Nothing, False, Nothing)
-        Me.Message = Message
     End Sub
 
 End Class

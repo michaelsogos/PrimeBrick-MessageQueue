@@ -1,27 +1,35 @@
-﻿'Imports System.Configuration
-'Imports System.IO
-'Imports System.Net
-'Imports System.Net.Sockets
-'Imports System.Text
-'Imports System.Threading
-Imports PrimeBrick.MessageQueue.Server
+﻿Imports PrimeBrick.MessageQueue.Server
 
-Module Server
+Module Broker
 
     'Private ConnectionWaitHandle As AutoResetEvent = New AutoResetEvent(False)
     'Private MaxThreads As Integer
     'Private MaxAsyncThread As Integer
 
     Sub main()
-        Dim Server As New Broker("any", 50605)
-        AddHandler Server.ServerLog, AddressOf OnServerLog
+        Dim Server As New Listener("any", 50605)
+        AddHandler Server.OnServerLog, AddressOf OnServerLog
+        AddHandler Server.OnReceiveMessage, AddressOf OnReceiveMessage
         Server.Start()
+
+        Dim ServerCertificate = New SecureServerConfiguration(Security.Authentication.SslProtocols.Tls, "C:\temp\test.pfx", "50605")
+        Dim ServerSSL As New Listener("any", 50606, ServerCertificate)
+        AddHandler ServerSSL.OnServerLog, AddressOf OnServerLog
+        AddHandler ServerSSL.OnReceiveMessage, AddressOf OnReceiveMessage
+        ServerSSL.Start()
+
         Console.WriteLine("Press a key")
         Console.ReadKey()
+        Server.Stop()
+        ServerSSL.Stop()
     End Sub
 
-    Private Sub OnServerLog(sender As PrimeBrick.MessageQueue.Server.Broker, e As PrimeBrick.MessageQueue.Server.ServerLogEventArgs)
+    Private Sub OnServerLog(sender As Listener, e As ServerLogEventArgs)
         Console.WriteLine(e.Message)
+    End Sub
+
+    Private Sub OnReceiveMessage(sender As Listener, e As ReceivedMessageArgs)
+        Console.WriteLine(e.Message.Content)
     End Sub
 
     'Sub Main()

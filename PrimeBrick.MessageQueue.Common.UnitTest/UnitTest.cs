@@ -517,11 +517,26 @@ namespace PrimeBrick.MessageQueue.Common.UnitTest
                 NS.Serialize(MS, ListOfComplexObject);
                 MS.Position = 0;
                 ArrayOfObjects = (object[])NS.Deserialize(MS);
-                Assert.AreEqual(ArrayResult.Length, ListOfInt.Count);
-                Assert.AreEqual(ArrayResult[4], ListOfInt[4]);
+                Assert.AreEqual(ArrayOfObjects.Length, ListOfComplexObject.Count);
+                Assert.AreEqual(((dynamic)ArrayOfObjects[0]).IntegerValue, ListOfComplexObject[0].IntegerValue);
+                Assert.AreEqual(((dynamic)ArrayOfObjects[1]).StringValue, ListOfComplexObject[1].StringValue);
+                MS.Position = 0;
+                var TypedListOfMiniComplexObject = NS.Deserialize<List<MiniComplexObject>>(MS);
+                Assert.AreEqual(TypedListOfMiniComplexObject.Count, ListOfComplexObject.Count);
+                Assert.AreEqual(TypedListOfMiniComplexObject[0].BooleanValue, ListOfComplexObject[0].BooleanValue);
+                Assert.IsInstanceOfType(TypedListOfMiniComplexObject[1].IntegerValue, typeof(int));
+                MS.Position = 0;
+                var TypedArrayOfMiniComplexObject = NS.Deserialize<MiniComplexObject[]>(MS);
+                Assert.AreEqual(TypedArrayOfMiniComplexObject.Length, ListOfComplexObject.Count);
+                Assert.AreEqual(TypedArrayOfMiniComplexObject[0].StringValue, ListOfComplexObject[0].StringValue);
+                Assert.IsInstanceOfType(TypedArrayOfMiniComplexObject[1].BooleanValue, typeof(bool));
                 MS.Position = 0;
                 MS.SetLength(0);
 
+                #endregion
+
+                #region "Dictionary containing complex object"
+                //TODO
                 #endregion
             }
         }

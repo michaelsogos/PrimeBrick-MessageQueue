@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PrimeBrick.MessageBroker", "PrimeBrick.MessageBroker\PrimeBrick.MessageBroker.vbproj", "{235D58C3-1060-4B9B-9A91-5F37845C8A87}"
 EndProject
@@ -13,11 +13,11 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PrimeBrick.MessageQueue.Ser
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PrimeBrick.MessageQueue.Client", "PrimeBrick.MessageQueue.Client\PrimeBrick.MessageQueue.Client.vbproj", "{E1D52C7F-A78D-429F-815D-19AFA2DF748D}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PrimeBrick.MessageQueue.Common", "..\PrimeBrick.MessageQueue.Common\PrimeBrick.MessageQueue.Common\PrimeBrick.MessageQueue.Common.vbproj", "{4B9DF8A3-E601-4F4E-B702-55A2DC83C4C2}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimeBrick.MessageQueue.Common.UnitTest", "PrimeBrick.MessageQueue.Common.UnitTest\PrimeBrick.MessageQueue.Common.UnitTest.csproj", "{5813FAF1-C544-4307-81D7-DC1B60074A56}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FastConverter", "..\..\..\GitHub\projects\FastConverter\FastConverter\FastConverter.vbproj", "{BB16E2C4-EAF1-4733-8703-66F3C750DFB9}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PrimeBrick.MessageQueue.Common", "PrimeBrick.MessageQueue.Common\PrimeBrick.MessageQueue.Common.vbproj", "{4B9DF8A3-E601-4F4E-B702-55A2DC83C4C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +45,6 @@ Global
 		{E1D52C7F-A78D-429F-815D-19AFA2DF748D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1D52C7F-A78D-429F-815D-19AFA2DF748D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1D52C7F-A78D-429F-815D-19AFA2DF748D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B9DF8A3-E601-4F4E-B702-55A2DC83C4C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B9DF8A3-E601-4F4E-B702-55A2DC83C4C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B9DF8A3-E601-4F4E-B702-55A2DC83C4C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B9DF8A3-E601-4F4E-B702-55A2DC83C4C2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5813FAF1-C544-4307-81D7-DC1B60074A56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5813FAF1-C544-4307-81D7-DC1B60074A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5813FAF1-C544-4307-81D7-DC1B60074A56}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,6 +53,10 @@ Global
 		{BB16E2C4-EAF1-4733-8703-66F3C750DFB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB16E2C4-EAF1-4733-8703-66F3C750DFB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB16E2C4-EAF1-4733-8703-66F3C750DFB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B9DF8A3-E601-4F4E-B702-55A2DC83C4C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B9DF8A3-E601-4F4E-B702-55A2DC83C4C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B9DF8A3-E601-4F4E-B702-55A2DC83C4C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B9DF8A3-E601-4F4E-B702-55A2DC83C4C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

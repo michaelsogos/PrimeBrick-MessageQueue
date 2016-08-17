@@ -531,12 +531,40 @@ namespace PrimeBrick.MessageQueue.Common.UnitTest
                 Assert.AreEqual(TypedArrayOfMiniComplexObject[0].StringValue, ListOfComplexObject[0].StringValue);
                 Assert.IsInstanceOfType(TypedArrayOfMiniComplexObject[1].BooleanValue, typeof(bool));
                 MS.Position = 0;
+                var TypedQueueOfMiniComplexObject = NS.Deserialize<Queue<MiniComplexObject>>(MS);
+                Assert.AreEqual(TypedQueueOfMiniComplexObject.Count, ListOfComplexObject.Count);
+                Assert.AreEqual(TypedQueueOfMiniComplexObject.Dequeue().IntegerValue, ListOfComplexObject[0].IntegerValue);
+                Assert.AreEqual(TypedQueueOfMiniComplexObject.Peek().StringValue, ListOfComplexObject[1].StringValue);
+                Assert.IsInstanceOfType(TypedQueueOfMiniComplexObject.Peek().BooleanValue, typeof(bool));
+                MS.Position = 0;
                 MS.SetLength(0);
 
                 #endregion
 
                 #region "Dictionary containing complex object"
-                //TODO
+                var DictionaryOfComplexObject = new Dictionary<String, MiniComplexObject>() {
+                    {"A", new MiniComplexObject (){
+                        IntegerValue =10,
+                        BooleanValue=true,
+                        StringValue="Test"
+                    }},
+                    {"B",   new MiniComplexObject (){
+                        IntegerValue =100,
+                        BooleanValue=false,
+                        StringValue="Test2"
+                    }}
+                };
+                NS.Serialize(MS, DictionaryOfComplexObject);
+                MS.Position = 0;
+                DictionaryOfString = (Dictionary<string, object>)NS.Deserialize(MS);
+                Assert.AreEqual(DictionaryOfString.Count, DictionaryOfComplexObject.Count);
+                Assert.AreEqual(((dynamic)DictionaryOfString["B"]).IntegerValue, DictionaryOfComplexObject["B"].IntegerValue);
+                MS.Position = 0;
+                var TypedDictionaryOfStringMiniComplexObject = NS.Deserialize<Dictionary<string, MiniComplexObject>>(MS);
+                Assert.AreEqual(TypedDictionaryOfStringMiniComplexObject.Count, DictionaryOfComplexObject.Count);
+                Assert.AreEqual(TypedDictionaryOfStringMiniComplexObject["A"].BooleanValue, DictionaryOfComplexObject["A"].BooleanValue);
+                MS.Position = 0;
+                MS.SetLength(0);
                 #endregion
             }
         }

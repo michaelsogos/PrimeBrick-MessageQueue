@@ -101,12 +101,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\PrimeBrick.MessageQueue.Common\PrimeBrick.MessageQueue.Common\PrimeBrick.MessageQueue.Common.vbproj">
-      <Project>{4b9df8a3-e601-4f4e-b702-55a2dc83c4c2}</Project>
-      <Name>PrimeBrick.MessageQueue.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="SecureServerConfiguration.vb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

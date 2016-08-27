@@ -1,7 +1,4 @@
-﻿Imports System.Configuration
-Imports System.IO
-Imports System.Net.Sockets
-Imports System.Text
+﻿Imports PrimeBrick.MessageQueue.Client
 
 Module Client1
 
@@ -11,7 +8,8 @@ Module Client1
     End Class
 
     Sub Main()
-        Dim Client As New PrimeBrick.MessageQueue.Client.Client("localhost", 50605)
+        Dim Publisher As New Client("localhost", 50605)
+        AddHandler Publisher.OnClientLog, AddressOf OnClientLog
         'Dim SSLClient As New PrimeBrick.MessageQueue.Client.Client("localhost", 50606, True)
         'SSLClient.Publish("CIAO A TUTTI :)")
         'Console.WriteLine("Press a key")
@@ -21,10 +19,16 @@ Module Client1
         'Console.WriteLine("Press a key")
         'Console.ReadKey()
 
-        Client.Publish(New TESTEX With {.GHE = 1.4, .lol = Guid.NewGuid})
+        Publisher.Publish("TESTMQ", New TESTEX With {.GHE = 1.4, .lol = Guid.NewGuid})
         Console.WriteLine("Press a key")
         Console.ReadKey()
     End Sub
+
+    Private Sub OnClientLog(sender As Client, e As ClientLogEventArgs)
+        Console.WriteLine(String.Format("{1}{0}{2}{0}{3}", vbTab, DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm:ss.fff"), e.Severity.ToString().ToUpper(), e.Message))
+    End Sub
+
+
 
     'Sub Main()
 

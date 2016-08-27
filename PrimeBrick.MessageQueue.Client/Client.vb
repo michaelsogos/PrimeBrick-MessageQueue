@@ -5,6 +5,7 @@ Imports System.Net.Sockets
 Imports System.Security.Cryptography.X509Certificates
 Imports System.Threading
 Imports PrimeBrick.MessageQueue.Common
+Imports PrimeBrick.MessageQueue.Common.Enums
 
 Public Class Client
 
@@ -40,27 +41,26 @@ Public Class Client
     End Sub
 #End Region
 
-    Private Function Serialize(ByRef value As Object) As Byte()
+    Private Function Serialize(ByRef Content As Object) As Byte()
         Using MS As New MemoryStream
-            Dim NS As New Common.NetworkSerializer()
-            NS.Serialize(MS, value)
+            Dim NS As New NetworkSerializer()
+            NS.Serialize(MS, Content)
             Return MS.ToArray
         End Using
     End Function
 
-    Public Function Publish(ByRef Content As Object)
+    Public Function Publish(ByRef QueueName As String, ByRef Content As Object)
         Try
-            Dim NewMessage As New Message(MessageType.Publish, Content)
-            Dim SerializedMessage = Serialize(NewMessage)
+            Dim NewMessage As New Message(QueueName, MessageType.Publish, Content)
+            Dim Payload = Serialize(NewMessage)
 
             Using Client As New TcpClient(Me.ServerAddress, Me.ServerPort)
-                Console.WriteLine(String.Format("Connected to server {0}:{1}!", Me.ServerAddress, Me.ServerPort))
-                Trace(String.Format("Connected to server {0}:{1}!", Me.ServerAddress, Me.ServerPort), LogGravity.Information)
+                Trace(String.Format("Connected to server {0}:{1}", Me.ServerAddress, Me.ServerPort), LogSeverity.Information)
 
                 If UseSSL Then
-                    WriteSecureStream(Client.GetStream(), SerializedMessage)
+                    WriteSecureStream(Client.GetStream(), Payload)
                 Else
-                    WriteStream(Client.GetStream(), SerializedMessage)
+                    WriteStream(Client.GetStream(), Payload)
                 End If
 
                 Client.Close()
@@ -234,8 +234,8 @@ Public Class Client
 
     'End Function
 
-    Private Sub Trace(Message As String, Gravity As LogGravity)
-        Dim EventArgs As New ClientLogEventArgs(Message, Gravity)
+    Private Sub Trace(Message As String, Severity As LogSeverity)
+        Dim EventArgs As New ClientLogEventArgs(Message, Severity)
         ThreadPool.QueueUserWorkItem(AddressOf ClientLogHandler, EventArgs)
     End Sub
 End Class

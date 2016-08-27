@@ -1,21 +1,15 @@
 ﻿Imports System.ComponentModel
+Imports PrimeBrick.MessageQueue.Common.Enums
 
 Public Class ClientLogEventArgs
     Inherits AsyncCompletedEventArgs
 
     Public ReadOnly Property Message As String
-    Public ReadOnly Property Gravity As String
+    Public ReadOnly Property Severity As LogSeverity
 
-    Public Sub New(Message As String, Gravity As LogGravity)
+    Public Sub New(Message As String, Severity As LogSeverity)
         MyBase.New(Nothing, False, Nothing)
         Me.Message = Message
-        Me.Gravity = Gravity
+        Me.Severity = Severity
     End Sub
-
 End Class
-
-Public Enum LogGravity
-    [Error] = 0
-    Warning = 1
-    Information = 2
-End Enum

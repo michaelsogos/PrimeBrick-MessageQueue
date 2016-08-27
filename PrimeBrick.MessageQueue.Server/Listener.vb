@@ -59,7 +59,8 @@ Public Class Listener
         Server = New TcpListener(Me.ListenerAddress, Me.ListenerPort)
         Server.Start()
         ServerListening = True
-        ServerLogHandler(New ServerLogEventArgs(String.Format("Broker started and listening on {0}:{1}", Me.ListenerAddress.ToString, Me.ListenerPort), LogGravity.Information))
+        ServerLogHandler(New ServerLogEventArgs(String.Format("Broker started and listening on {0}:{1}", Me.ListenerAddress.ToString, Me.ListenerPort), LogSeverity.Information))
+        ServerLogHandler(New ServerLogEventArgs(String.Format("Broker IS {0}SECURE", If(SecureServerConfiguration Is Nothing, "NOT ", "")), LogSeverity.Information))
         ThreadPool.QueueUserWorkItem(New WaitCallback(AddressOf HandleAsyncTcpListener))
     End Sub
 
@@ -88,8 +89,8 @@ Public Class Listener
 
     End Function
 
-    Private Sub Trace(Message As String, Gravity As LogGravity)
-        Dim EventArgs As New ServerLogEventArgs(Message, Gravity)
+    Private Sub Trace(Message As String, Severity As LogSeverity)
+        Dim EventArgs As New ServerLogEventArgs(Message, Severity)
         ThreadPool.QueueUserWorkItem(AddressOf ServerLogHandler, EventArgs)
     End Sub
 
@@ -127,7 +128,7 @@ Public Class Listener
             Using Socket = Server.EndAcceptTcpClient(ServerAsync)
                 ConnectionWaitHandle.Set()
                 Dim RemoteEndPoint = Socket.Client.RemoteEndPoint.ToString()
-                Trace("Connected to " + RemoteEndPoint, LogGravity.Information)
+                Trace(String.Format("Connected to {0}", RemoteEndPoint), LogSeverity.Information)
 
                 If SecureServerConfiguration IsNot Nothing Then
                     ReadSecureStream(Socket.GetStream())
@@ -137,16 +138,16 @@ Public Class Listener
 
                 Socket.Close()
 
-                Console.WriteLine("Disconnected from " + RemoteEndPoint)
+                Trace(String.Format("Disconnected from {0}", RemoteEndPoint), LogSeverity.Information)
                 'End Using
             End Using
         Catch ex As Exception
-            Trace(String.Format("{0}{1}{2}", ex.Message, Environment.NewLine, ex.StackTrace), LogGravity.Error)
+            Trace(String.Format("{0}{1}{2}", ex.Message, Environment.NewLine, ex.StackTrace), LogSeverity.Error)
         End Try
     End Sub
 
     Private Sub ReadStream(ByRef Stream As Stream)
-        Using MS As New MemoryStream
+        Using MS As New MemoryStream()
             'Dim SocketStream = New NetworkStream(Socket)
             'Using Buffer = New BufferedStream(SocketStream)
             'While True

@@ -5,12 +5,12 @@ Public Class ServerLogEventArgs
     Inherits AsyncCompletedEventArgs
 
     Public ReadOnly Property Message As String
-    Public ReadOnly Property Gravity As String
+    Public ReadOnly Property Severity As LogSeverity
 
-    Public Sub New(Message As String, Gravity As LogGravity)
+    Public Sub New(Message As String, Severity As LogSeverity)
         MyBase.New(Nothing, False, Nothing)
         Me.Message = Message
-        Me.Gravity = Gravity
+        Me.Severity = Severity
     End Sub
 
 End Class
@@ -27,7 +27,7 @@ Public Class ReceivedMessageArgs
 
 End Class
 
-Public Enum LogGravity
+Public Enum LogSeverity
     [Error] = 0
     Warning = 1
     Information = 2

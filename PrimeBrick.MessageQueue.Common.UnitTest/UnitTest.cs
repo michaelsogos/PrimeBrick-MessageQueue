@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Diagnostics;
 using System.Collections.Specialized;
+using PrimeBrick.MessageQueue.Common;
 
 namespace PrimeBrick.MessageQueue.Common.UnitTest
 {

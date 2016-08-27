@@ -104,6 +104,12 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PrimeBrick.MessageQueue.Common\PrimeBrick.MessageQueue.Common.vbproj">
+      <Project>{4B9DF8A3-E601-4F4E-B702-55A2DC83C4C2}</Project>
+      <Name>PrimeBrick.MessageQueue.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

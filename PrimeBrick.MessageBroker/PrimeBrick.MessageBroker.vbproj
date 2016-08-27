@@ -125,6 +125,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PrimeBrick.MessageQueue.Common\PrimeBrick.MessageQueue.Common.vbproj">
+      <Project>{4B9DF8A3-E601-4F4E-B702-55A2DC83C4C2}</Project>
+      <Name>PrimeBrick.MessageQueue.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PrimeBrick.MessageQueue.Server\PrimeBrick.MessageQueue.Server.vbproj">
       <Project>{e04c0b53-b4c6-4c59-a2a8-eca4fc326060}</Project>
       <Name>PrimeBrick.MessageQueue.Server</Name>

@@ -16,6 +16,4 @@ Public Class SecureServerConfiguration
             Me.Certificate = New X509Certificate2(CertificationFilePath, Password)
         End If
     End Sub
-
-
 End Class

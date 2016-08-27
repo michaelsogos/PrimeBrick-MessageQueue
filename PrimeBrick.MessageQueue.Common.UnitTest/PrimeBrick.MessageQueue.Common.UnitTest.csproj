@@ -54,6 +54,12 @@
     <Compile Include="UnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PrimeBrick.MessageQueue.Common\PrimeBrick.MessageQueue.Common.vbproj">
+      <Project>{4B9DF8A3-E601-4F4E-B702-55A2DC83C4C2}</Project>
+      <Name>PrimeBrick.MessageQueue.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

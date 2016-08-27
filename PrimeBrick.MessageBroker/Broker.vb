@@ -7,6 +7,12 @@ Module Broker
     'Private MaxAsyncThread As Integer
 
     Sub main()
+        Console.ForegroundColor = ConsoleColor.Yellow
+        Console.WriteLine("Press a key to exit...")
+        Console.WriteLine("")
+        Console.WriteLine("")
+        Console.ForegroundColor = ConsoleColor.White
+
         Dim Server As New Listener("any", 50605)
         AddHandler Server.OnServerLog, AddressOf OnServerLog
         AddHandler Server.OnReceiveMessage, AddressOf OnReceiveMessage
@@ -18,18 +24,25 @@ Module Broker
         AddHandler ServerSSL.OnReceiveMessage, AddressOf OnReceiveMessage
         ServerSSL.Start()
 
-        Console.WriteLine("Press a key")
         Console.ReadKey()
         Server.Stop()
         ServerSSL.Stop()
     End Sub
 
     Private Sub OnServerLog(sender As Listener, e As ServerLogEventArgs)
-        Console.WriteLine(e.Message)
+        If e.Severity = LogSeverity.Error Then Console.ForegroundColor = ConsoleColor.Red
+        If e.Severity = LogSeverity.Warning Then Console.ForegroundColor = ConsoleColor.Yellow
+        If e.Severity = LogSeverity.Information Then Console.ForegroundColor = ConsoleColor.Green
+        Console.WriteLine(String.Format("{1}{0}{2}{0}{3}", vbTab, DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm:ss.fff"), e.Severity.ToString().ToUpper(), e.Message))
+        Console.ForegroundColor = ConsoleColor.White
     End Sub
 
     Private Sub OnReceiveMessage(sender As Listener, e As ReceivedMessageArgs)
-        Console.WriteLine(e.Message.Content)
+        Console.ForegroundColor = ConsoleColor.Cyan
+        Console.WriteLine(String.Format("{1}{0}{2}{0}Received message for queue {3}", vbTab, DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm:ss.fff"), LogSeverity.Information.ToString().ToUpper(), e.Message.QueueName))
+        Console.WriteLine(String.Format("{1}{0}{2}{0}Pattern message is {3}", vbTab, DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm:ss.fff"), LogSeverity.Information.ToString().ToUpper(), e.Message.Type.ToString().ToUpper()))
+        Console.WriteLine(String.Format("{1}{0}{2}{0}Message type is {3}", vbTab, DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm:ss.fff"), LogSeverity.Information.ToString().ToUpper(), e.Message.Content))
+        Console.ForegroundColor = ConsoleColor.White
     End Sub
 
     'Sub Main()
